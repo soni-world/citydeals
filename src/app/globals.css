@@ -70,46 +70,19 @@ body {
   }
 }
 
-/* Leaflet popup styling override - dark theme */
+/* Leaflet popup styling override */
 .leaflet-popup-content-wrapper {
   border-radius: 12px !important;
-  background: #1e1e2e !important;
-  color: #e2e8f0 !important;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
 }
 
 .leaflet-popup-content {
   margin: 12px 14px !important;
   font-family: inherit !important;
-  color: #e2e8f0 !important;
 }
 
 .leaflet-popup-tip {
-  background: #1e1e2e !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
-}
-
-.leaflet-popup-close-button {
-  color: #94a3b8 !important;
-}
-
-/* Dark map attribution */
-.leaflet-control-attribution {
-  background: rgba(30, 30, 46, 0.8) !important;
-  color: #64748b !important;
-}
-.leaflet-control-attribution a {
-  color: #818cf8 !important;
-}
-
-/* Dark zoom controls */
-.leaflet-control-zoom a {
-  background: #1e1e2e !important;
-  color: #e2e8f0 !important;
-  border-color: #334155 !important;
-}
-.leaflet-control-zoom a:hover {
-  background: #2d2d44 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* POI markers - remove default Leaflet icon background */
@@ -118,18 +91,17 @@ body {
   border: none !important;
 }
 
-/* Deal hover tooltip - dark theme */
+/* Deal hover tooltip */
 .deal-tooltip {
-  background: #1e1e2e !important;
-  border: 1px solid #334155 !important;
+  background: white !important;
+  border: 1px solid #e5e7eb !important;
   border-radius: 10px !important;
   padding: 8px 10px !important;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
   font-family: inherit !important;
   opacity: 1 !important;
-  color: #e2e8f0 !important;
 }
 
 .deal-tooltip::before {
-  border-top-color: #1e1e2e !important;
+  border-top-color: white !important;
 }

@@ -189,23 +189,23 @@ export default function POILayer({ enabledTypes }: POILayerProps) {
         const website = node.tags?.website || "";
 
         let popupHtml = `
-          <div style="min-width: 150px; font-family: inherit; color: #e2e8f0;">
-            <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #fff;">${name}${cuisine}</div>
-            <div style="display: inline-block; background: ${poiType.color}30; color: ${poiType.color}; font-size: 11px; padding: 2px 8px; border-radius: 99px; font-weight: 500; margin-bottom: 6px;">
+          <div style="min-width: 150px; font-family: inherit;">
+            <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;">${name}${cuisine}</div>
+            <div style="display: inline-block; background: ${poiType.color}20; color: ${poiType.color}; font-size: 11px; padding: 2px 8px; border-radius: 99px; font-weight: 500; margin-bottom: 6px;">
               ${poiType.emoji} ${poiType.label.replace(/s$/, "")}
             </div>
         `;
 
         if (node.tags?.["addr:full"] || node.tags?.["addr:street"]) {
-          popupHtml += `<div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">${node.tags["addr:full"] || node.tags["addr:street"]}</div>`;
+          popupHtml += `<div style="font-size: 11px; color: #6b7280; margin-top: 4px;">${node.tags["addr:full"] || node.tags["addr:street"]}</div>`;
         }
 
         if (phone) {
-          popupHtml += `<div style="font-size: 11px; margin-top: 4px;"><a href="tel:${phone}" style="color: #818cf8; text-decoration: none;">${phone}</a></div>`;
+          popupHtml += `<div style="font-size: 11px; margin-top: 4px;"><a href="tel:${phone}" style="color: #4f46e5; text-decoration: none;">${phone}</a></div>`;
         }
 
         if (website) {
-          popupHtml += `<div style="font-size: 11px; margin-top: 2px;"><a href="${website}" target="_blank" rel="noopener" style="color: #818cf8; text-decoration: none;">Visit website</a></div>`;
+          popupHtml += `<div style="font-size: 11px; margin-top: 2px;"><a href="${website}" target="_blank" rel="noopener" style="color: #4f46e5; text-decoration: none;">Visit website</a></div>`;
         }
 
         popupHtml += `</div>`;

@@ -130,8 +130,8 @@ export default function Map({ center, zoom, deals, onDealClick, onMapClick, newM
         zoomControl={true}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <ChangeView center={center} zoom={zoom} />
         <ZoomTracker onZoomChange={handleZoomChange} />
@@ -156,35 +156,35 @@ export default function Map({ center, zoom, deals, onDealClick, onMapClick, newM
               className="deal-tooltip"
             >
               <div className="max-w-[220px]">
-                <p className="font-semibold text-white text-xs leading-tight truncate">{deal.title}</p>
-                <p className="text-green-400 font-bold text-xs mt-0.5">{formatPrice(deal.price)}</p>
-                <p className="text-slate-400 text-[10px] mt-1 line-clamp-2 leading-snug">{deal.description}</p>
-                <span className="inline-block bg-indigo-500/20 text-indigo-300 text-[9px] px-1.5 py-0.5 rounded-full mt-1.5 font-medium">
+                <p className="font-semibold text-gray-900 text-xs leading-tight truncate">{deal.title}</p>
+                <p className="text-green-700 font-bold text-xs mt-0.5">{formatPrice(deal.price)}</p>
+                <p className="text-gray-500 text-[10px] mt-1 line-clamp-2 leading-snug">{deal.description}</p>
+                <span className="inline-block bg-blue-50 text-blue-700 text-[9px] px-1.5 py-0.5 rounded-full mt-1.5 font-medium">
                   {deal.category}
                 </span>
               </div>
             </Tooltip>
             <Popup>
               <div className="min-w-[200px]">
-                <h3 className="font-bold text-base mb-1 text-white">{deal.title}</h3>
-                <p className="text-green-400 font-semibold text-sm mb-1">{formatPrice(deal.price)}</p>
-                <p className="text-slate-400 text-xs mb-2 line-clamp-2">{deal.description}</p>
-                <span className="inline-block bg-indigo-500/20 text-indigo-300 text-xs px-2 py-0.5 rounded-full mb-2">
+                <h3 className="font-bold text-base mb-1">{deal.title}</h3>
+                <p className="text-green-700 font-semibold text-sm mb-1">{formatPrice(deal.price)}</p>
+                <p className="text-gray-600 text-xs mb-2 line-clamp-2">{deal.description}</p>
+                <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full mb-2">
                   {deal.category}
                 </span>
-                <div className="border-t border-slate-700 pt-2 mt-1 space-y-1">
+                <div className="border-t pt-2 mt-1 space-y-1">
                   {deal.contact_phone && (
-                    <p className="text-xs text-slate-300">
+                    <p className="text-xs">
                       <span className="font-medium">Phone:</span>{" "}
-                      <a href={`tel:${deal.contact_phone}`} className="text-indigo-400 underline">
+                      <a href={`tel:${deal.contact_phone}`} className="text-blue-600 underline">
                         {deal.contact_phone}
                       </a>
                     </p>
                   )}
                   {deal.contact_email && (
-                    <p className="text-xs text-slate-300">
+                    <p className="text-xs">
                       <span className="font-medium">Email:</span>{" "}
-                      <a href={`mailto:${deal.contact_email}`} className="text-indigo-400 underline">
+                      <a href={`mailto:${deal.contact_email}`} className="text-blue-600 underline">
                         {deal.contact_email}
                       </a>
                     </p>
@@ -192,7 +192,7 @@ export default function Map({ center, zoom, deals, onDealClick, onMapClick, newM
                 </div>
                 <button
                   onClick={() => handleMarkerClick(deal)}
-                  className="mt-2 w-full text-xs bg-indigo-500 text-white py-1.5 px-2 rounded-lg hover:bg-indigo-400 transition-colors font-medium"
+                  className="mt-2 w-full text-xs bg-indigo-600 text-white py-1.5 px-2 rounded-lg hover:bg-indigo-700 transition-colors font-medium"
                 >
                   View Details
                 </button>

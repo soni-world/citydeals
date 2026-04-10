@@ -76,7 +76,7 @@ export default function CityPicker({ selectedCity, onChange }: CityPickerProps) 
       </button>
 
       {open && (
-        <div className="absolute top-full left-0 mt-1 w-[340px] bg-white rounded-xl shadow-xl border border-gray-200 z-[1000] overflow-hidden">
+        <div className="absolute top-full right-0 sm:left-0 sm:right-auto mt-1 w-[300px] sm:w-[340px] bg-white rounded-xl shadow-xl border border-gray-200 z-[9999] overflow-hidden">
           {/* Search input */}
           <div className="p-3 border-b border-gray-100">
             <div className="relative">
