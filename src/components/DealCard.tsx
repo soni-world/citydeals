@@ -23,6 +23,17 @@ function timeAgo(dateStr: string): string {
   return `${days}d ago`;
 }
 
+function expiresIn(dateStr: string): string {
+  const now = new Date();
+  const expires = new Date(dateStr + "Z");
+  const diff = expires.getTime() - now.getTime();
+  if (diff <= 0) return "Expired";
+  const hours = Math.floor(diff / 3600000);
+  if (hours < 24) return `${hours}h left`;
+  const days = Math.floor(hours / 24);
+  return `${days}d left`;
+}
+
 interface DealCardProps {
   deal: Deal;
   selected?: boolean;
@@ -50,11 +61,22 @@ export default function DealCard({ deal, selected, onClick }: DealCardProps) {
 
       <p className="text-gray-500 text-xs line-clamp-2 mb-3 leading-relaxed">{deal.description}</p>
 
-      <div className="flex items-center justify-between">
-        <span className="inline-block bg-blue-50 text-blue-700 text-[11px] px-2 py-0.5 rounded-full font-medium">
-          {deal.category}
-        </span>
-        <span className="text-gray-400 text-[11px]">{timeAgo(deal.created_at)}</span>
+      <div className="flex items-center justify-between gap-1">
+        <div className="flex items-center gap-1.5 min-w-0">
+          <span className="inline-block bg-blue-50 text-blue-700 text-[11px] px-2 py-0.5 rounded-full font-medium">
+            {deal.category}
+          </span>
+          {deal.expires_at && (
+            <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
+              new Date(deal.expires_at + "Z") < new Date(Date.now() + 24 * 60 * 60 * 1000)
+                ? "bg-red-50 text-red-500"
+                : "bg-amber-50 text-amber-600"
+            }`}>
+              {expiresIn(deal.expires_at)}
+            </span>
+          )}
+        </div>
+        <span className="text-gray-400 text-[11px] flex-shrink-0">{timeAgo(deal.created_at)}</span>
       </div>
 
       <div className="mt-3 pt-3 border-t border-gray-100 flex items-center gap-3">

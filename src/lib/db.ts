@@ -26,9 +26,29 @@ export async function initDb() {
       lng REAL NOT NULL,
       contact_email TEXT,
       contact_phone TEXT,
+      expires_at TEXT,
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
     )
   `);
+  // Add expires_at column if table already existed without it
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS _migrations (key TEXT PRIMARY KEY)
+  `);
+  const migrated = await db.execute({
+    sql: "SELECT key FROM _migrations WHERE key = ?",
+    args: ["add_expires_at"],
+  });
+  if (migrated.rows.length === 0) {
+    try {
+      await db.execute("ALTER TABLE deals ADD COLUMN expires_at TEXT");
+    } catch {
+      // Column already exists
+    }
+    await db.execute({
+      sql: "INSERT OR IGNORE INTO _migrations (key) VALUES (?)",
+      args: ["add_expires_at"],
+    });
+  }
 }
 
 export interface Deal {
@@ -42,5 +62,6 @@ export interface Deal {
   lng: number;
   contact_email: string | null;
   contact_phone: string | null;
+  expires_at: string | null;
   created_at: string;
 }

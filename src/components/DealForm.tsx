@@ -32,6 +32,7 @@ export default function DealForm({ city, state, markerPosition, onSubmit, onCanc
   const [category, setCategory] = useState("General");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
+  const [expiresInDays, setExpiresInDays] = useState("7");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [step, setStep] = useState<1 | 2>(1);
@@ -65,6 +66,7 @@ export default function DealForm({ city, state, markerPosition, onSubmit, onCanc
           lng: markerPosition.lng,
           contact_email: contactEmail || null,
           contact_phone: contactPhone || null,
+          expires_in_days: expiresInDays === "0" ? null : parseInt(expiresInDays),
         }),
       });
 
@@ -212,6 +214,40 @@ export default function DealForm({ city, state, markerPosition, onSubmit, onCanc
                   ))}
                 </select>
               </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Deal expires in
+              </label>
+              <div className="flex gap-2 flex-wrap">
+                {[
+                  { value: "1", label: "1 day" },
+                  { value: "3", label: "3 days" },
+                  { value: "7", label: "7 days" },
+                  { value: "15", label: "15 days" },
+                  { value: "30", label: "30 days" },
+                  { value: "0", label: "Never" },
+                ].map((opt) => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => setExpiresInDays(opt.value)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
+                      expiresInDays === opt.value
+                        ? "bg-indigo-600 text-white border-indigo-600"
+                        : "bg-white text-gray-600 border-gray-200 hover:border-indigo-300"
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+              <p className="text-[10px] text-gray-400 mt-1.5">
+                {expiresInDays === "0"
+                  ? "This deal will stay active until you delete it"
+                  : `Deal will auto-expire after ${expiresInDays} day${expiresInDays === "1" ? "" : "s"}`}
+              </p>
             </div>
           </>
         ) : (

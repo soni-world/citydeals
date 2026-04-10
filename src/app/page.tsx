@@ -96,6 +96,18 @@ export default function Home() {
     setShowForm(false);
   }
 
+  async function handleDeleteDeal(dealId: string) {
+    try {
+      const res = await fetch(`/api/deals/${dealId}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Failed to delete");
+      setSelectedDeal(null);
+      fetchDeals();
+      setToast({ message: "Deal deleted", type: "success" });
+    } catch {
+      setToast({ message: "Failed to delete deal", type: "error" });
+    }
+  }
+
   return (
     <div className="flex flex-col h-screen">
       {/* Toast */}
@@ -205,13 +217,22 @@ export default function Home() {
                 }).format(selectedDeal.price)}
               </p>
 
-              <div className="flex items-center gap-2 mb-5">
+              <div className="flex items-center gap-2 flex-wrap mb-5">
                 <span className="inline-block bg-blue-50 text-blue-700 text-xs px-2.5 py-1 rounded-full font-medium">
                   {selectedDeal.category}
                 </span>
                 <span className="text-xs text-gray-400">
                   {selectedCity.name}, {selectedCity.state}
                 </span>
+                {selectedDeal.expires_at && (
+                  <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${
+                    new Date(selectedDeal.expires_at + "Z") < new Date(Date.now() + 24 * 60 * 60 * 1000)
+                      ? "bg-red-50 text-red-600"
+                      : "bg-amber-50 text-amber-600"
+                  }`}>
+                    Expires {new Date(selectedDeal.expires_at + "Z").toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                  </span>
+                )}
               </div>
 
               <div className="bg-gray-50 rounded-xl p-4 mb-5">
@@ -259,6 +280,21 @@ export default function Home() {
                   </a>
                 )}
               </div>
+
+              {/* Delete deal */}
+              <button
+                onClick={() => {
+                  if (window.confirm("Are you sure you want to delete this deal?")) {
+                    handleDeleteDeal(selectedDeal.id);
+                  }
+                }}
+                className="mt-5 w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium text-red-600 bg-red-50 border border-red-200 hover:bg-red-100 transition-colors"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                Delete this deal
+              </button>
             </div>
           ) : (
             <>
