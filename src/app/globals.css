@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #f8fafc;
   --foreground: #171717;
 }
 
@@ -12,15 +12,96 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Leaflet container */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  border-radius: 0.75rem;
+}
+
+/* Orange hue for "new deal" marker */
+.hue-rotate-marker {
+  filter: hue-rotate(200deg) saturate(1.5);
+}
+
+/* Custom scrollbar */
+.deals-sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+.deals-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.deals-sidebar::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 3px;
+}
+.deals-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Hide scrollbar for category filter */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth transitions for deal cards */
+.deal-card-enter {
+  animation: slideUp 0.2s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Leaflet popup styling override */
+.leaflet-popup-content-wrapper {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+}
+
+.leaflet-popup-content {
+  margin: 12px 14px !important;
+  font-family: inherit !important;
+}
+
+.leaflet-popup-tip {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* POI markers - remove default Leaflet icon background */
+.poi-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Deal hover tooltip */
+.deal-tooltip {
+  background: white !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 10px !important;
+  padding: 8px 10px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+  font-family: inherit !important;
+  opacity: 1 !important;
+}
+
+.deal-tooltip::before {
+  border-top-color: white !important;
 }
